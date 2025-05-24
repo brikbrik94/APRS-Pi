@@ -1,84 +1,91 @@
-# APRS Pi – OLED Monitor Projekt
+# 📡 APRS Pi – OLED Monitor for Raspberry Pi
 
-[![Python](https://img.shields.io/badge/Python-3.7%2B-blue.svg)](https://www.python.org/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+A compact, Python-based APRS monitoring system for Raspberry Pi. It displays real-time GPS, APRS, and system data on a 2.42" I2C OLED screen.
 
-Ein multifunktionales APRS- und Systemmonitoring-Projekt auf Basis eines Raspberry Pi 4B mit OLED-Display-Anzeige.
+---
 
-## 🔧 Funktionen
+## 🧭 Project Overview
 
-- Anzeige von GPS-Zeit & Positionsdaten (über `gpsd`)
-- APRS "Last heard"-Callsign via Direwolf (KISS TCP)
-- Systemressourcen-Monitor (CPU, RAM, Disk, Temperatur, Uptime)
-- Akkuüberwachung (Spannung, Strom, Ladezustand) über UPS HAT (INA219)
-- GPX-Logging bei GPS-Fix
-- Seitenumschaltung per GPIO-Taster, Rücksprung nach 30 s zur Hauptseite
+APRS Pi uses:
+- **Direwolf** to decode APRS packets (via KISS TCP)
+- **gpsd** to retrieve GPS data
+- **Pillow + Adafruit SSD1306** for OLED display rendering
+- Optionally: **INA219 UPS HAT** for voltage monitoring
 
-## 🖥️ Screenshot
+It is designed to run headless and includes support for systemd startup and GPX logging.
 
-*(Ein Screenshot der OLED-Anzeige kann hier ergänzt werden)*
+---
 
-## 🧰 Voraussetzungen
+## 🧱 Hardware Requirements
 
-### 🐍 Python 3 + Bibliotheken
+| Component                    | Link                                                                 |
+|-----------------------------|----------------------------------------------------------------------|
+| Raspberry Pi 4B             | https://www.raspberrypi.com/products/raspberry-pi-4-model-b/         |
+| 2.42" OLED (SH1106, I2C)    | https://www.waveshare.com/wiki/2.42inch_OLED_Module                  |
+| GNSS HAT (MAX-M8Q, UART)    | https://www.waveshare.com/wiki/GNSS_HAT_(B)                          |
+| UPS HAT (D) with INA219     | https://www.waveshare.com/wiki/UPS_HAT_(D)                           |
+| Push button (GPIO17)        | https://www.reichelt.at/taster-smd-omron-b3f-1000-p16802.html        |
 
-Installiere notwendige Pakete:
+👉 Wiring schematic: [`docs/wiring.svg`](docs/wiring.svg)
+
+---
+
+## 📦 Software Requirements (Summary)
+
+This project depends on the following software tools:
+
+| Component         | Purpose                            |
+|------------------|------------------------------------|
+| **gpsd**          | GPS interface and SHM time source  |
+| **pps-tools**     | PPS synchronization (optional)     |
+| **ntp**           | Accurate system time (via PPS)     |
+| **hamlib-utils**  | rig control testing via `rigctl`   |
+| **Direwolf**      | APRS decoding (KISS TCP mode)      |
+| **Python 3**      | Runtime environment                |
+| **Adafruit SSD1306** + Pillow | OLED rendering         |
+
+📖 For step-by-step installation instructions, visit:  
+👉 [Installation Guide (Wiki)](https://github.com/brikbrik94/APRS-Pi/wiki/Installation)
+
+---
+
+## 🚀 Getting Started
+
+Run Direwolf:
 
 ```bash
-pip install -r Test-Scripts/requirements-test-V1.0.py
+direwolf -t 0 -n 1 -c ~/direwolf.conf
 ```
 
-### 📦 Installierte Software
-
-- **gpsd** – GPS-Daemon zur Kommunikation mit GNSS-Modulen  
-  👉 https://gpsd.io/
-
-- **Direwolf** – APRS-Encoder/Decoder, verwendet KISS TCP  
-  👉 https://github.com/wb2osz/direwolf
-
-- **rigctl** (aus `hamlib`) – optional zur Steuerung von Funkgeräten  
-  👉 https://sourceforge.net/projects/hamlib/
-
-Optional: `gpxlogger` für kontinuierliches Tracking (läuft über gpsd)
-
-## ⚙️ Hardware
-
-| Komponente                | Beschreibung / Link |
-|--------------------------|---------------------|
-| Raspberry Pi 4B          | https://www.raspberrypi.com/products/raspberry-pi-4-model-b/ |
-| OLED 2.42" (I2C, SH1106) | https://www.waveshare.com/2.42inch-oled-module.htm |
-| UPS HAT (D) mit INA219   | https://www.waveshare.com/ups-hat-d.htm |
-| GNSS MAX-M8Q GPS HAT     | https://www.waveshare.com/max-m8q-gnss-hat.htm|
-| Taster (GPIO17)          | Standard-Taster, z. B. https://www.reichelt.at/taster |
-
-Details zu den Anschlüssen: siehe `Wiring.txt`
-
-## 📁 Projektstruktur
-
-```
-APRS-Pi/
-├── APRS-Pi-OLED-V2.3.py             # OLED-Version (aktuell)
-├── APRS-Pi-Console-V2.2.py          # Terminal-Version
-├── OLD/                             # Vorherige Releases
-├── Test-Scripts/                    # Testtools & Anforderungen
-├── Wiring.txt                       # Hardware-Anschlussübersicht
-├── VERSION-HISTORY.txt              # Änderungsverlauf
-├── LICENSE                          # MIT-Lizenz
-└── README.md                        # Diese Datei
-```
-
-## ▶️ Start
+Launch OLED script:
 
 ```bash
 python3 APRS-Pi-OLED-V2.3.py
-# oder
-python3 APRS-Pi-Console-V2.2.py
 ```
 
-## 📄 Lizenz
+Enable automatic startup using `systemd`:  
+👉 [Systemd Service Setup](https://github.com/brikbrik94/APRS-Pi/wiki/Systemd-Service)
 
-Dieses Projekt steht unter der MIT-Lizenz – siehe [LICENSE](LICENSE) für Details.
+---
 
-## 🙋 Mitwirken
+## 📖 Documentation
 
-Vorschläge, Fehlerberichte oder Erweiterungen sind willkommen!
+Full project documentation is available in the GitHub Wiki:  
+👉 [APRS Pi Wiki](https://github.com/brikbrik94/APRS-Pi/wiki)
+
+- [OLED Setup](https://github.com/brikbrik94/APRS-Pi/wiki/OLED-Pages)
+- [Hardware Details](https://github.com/brikbrik94/APRS-Pi/wiki/Hardware-Setup)
+- [Troubleshooting](https://github.com/brikbrik94/APRS-Pi/wiki/Troubleshooting)
+- [Changelog](https://github.com/brikbrik94/APRS-Pi/wiki/Changelog)
+
+---
+
+## 📜 License
+
+This project is licensed under the MIT License.
+
+---
+
+## 🤝 Contributing
+
+Pull requests and suggestions are always welcome!
