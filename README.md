@@ -1,54 +1,84 @@
 # APRS Pi – OLED Monitor Projekt
 
-Ein multifunktionales Monitoring-Skript für den Raspberry Pi 4B mit Anzeige auf einem 2.42" OLED-Display.
+[![Python](https://img.shields.io/badge/Python-3.7%2B-blue.svg)](https://www.python.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-## Hauptfunktionen
+Ein multifunktionales APRS- und Systemmonitoring-Projekt auf Basis eines Raspberry Pi 4B mit OLED-Display-Anzeige.
 
-- GPS-Zeit- und Positionsanzeige (via gpsd)
-- APRS-Rufzeichenanzeige (über Direwolf KISS TCP)
-- Systemressourcenmonitor (CPU, RAM, Disk, Temperatur, Uptime)
-- Ladezustand & Status eines UPS HAT (INA219)
-- GPX-Logger (automatisch aktiv bei GPS-Fix)
-- Steuerung per GPIO-Taster mit automatischem Rücksprung auf Hauptseite
+## 🔧 Funktionen
 
-## Hardware
+- Anzeige von GPS-Zeit & Positionsdaten (über `gpsd`)
+- APRS "Last heard"-Callsign via Direwolf (KISS TCP)
+- Systemressourcen-Monitor (CPU, RAM, Disk, Temperatur, Uptime)
+- Akkuüberwachung (Spannung, Strom, Ladezustand) über UPS HAT (INA219)
+- GPX-Logging bei GPS-Fix
+- Seitenumschaltung per GPIO-Taster, Rücksprung nach 30 s zur Hauptseite
 
-- **Raspberry Pi 4B**
-- **OLED 2.42" Waveshare (I2C)**
-- **UPS HAT (D) mit INA219** (I2C Adresse: 0x43)
-- **GNSS GPS HAT (MAX-M8Q)** (UART)
-- **GPIO-Taster** an GPIO17 (Pin 11)
+## 🖥️ Screenshot
 
-## Anschlüsse
+*(Ein Screenshot der OLED-Anzeige kann hier ergänzt werden)*
 
-Siehe `Wiring.txt` für Details zur Verkabelung.
+## 🧰 Voraussetzungen
 
-## Projektstruktur
+### 🐍 Python 3 + Bibliotheken
 
-- `APRS-Pi-OLED-V2.3.py` – aktuelles Hauptskript für OLED-Betrieb
-- `APRS-Pi-Console-V2.2.py` – Headless/Terminal-Version
-- `OLD/` – Archiv früherer Versionen
-- `Test-Scripts/` – Test- und Debug-Skripte
-- `VERSION-HISTORY.txt` – Änderungsverlauf
-- `README.md` – Diese Datei
+Installiere notwendige Pakete:
 
-## Voraussetzungen
+```bash
+pip install -r Test-Scripts/requirements-test-V1.0.py
+```
 
-- Python 3
-- Empfohlene Pakete siehe `Test-Scripts/requirements-test-V1.0.py`
+### 📦 Installierte Software
 
-## Start
+- **gpsd** – GPS-Daemon zur Kommunikation mit GNSS-Modulen  
+  👉 https://gpsd.io/
+
+- **Direwolf** – APRS-Encoder/Decoder, verwendet KISS TCP  
+  👉 https://github.com/wb2osz/direwolf
+
+- **rigctl** (aus `hamlib`) – optional zur Steuerung von Funkgeräten  
+  👉 https://sourceforge.net/projects/hamlib/
+
+Optional: `gpxlogger` für kontinuierliches Tracking (läuft über gpsd)
+
+## ⚙️ Hardware
+
+| Komponente                | Beschreibung / Link |
+|--------------------------|---------------------|
+| Raspberry Pi 4B          | https://www.raspberrypi.com/products/raspberry-pi-4-model-b/ |
+| OLED 2.42" (I2C, SH1106) | https://www.waveshare.com/wiki/2.42inch_OLED_Module |
+| UPS HAT (D) mit INA219   | https://www.waveshare.com/wiki/UPS_HAT_(D) |
+| GNSS MAX-M8Q GPS HAT     | https://www.waveshare.com/wiki/GNSS_HAT_(B) |
+| Taster (GPIO17)          | Standard-Taster, z. B. https://www.reichelt.at/taster |
+
+Details zu den Anschlüssen: siehe `Wiring.txt`
+
+## 📁 Projektstruktur
+
+```
+APRS-Pi/
+├── APRS-Pi-OLED-V2.3.py             # OLED-Version (aktuell)
+├── APRS-Pi-Console-V2.2.py          # Terminal-Version
+├── OLD/                             # Vorherige Releases
+├── Test-Scripts/                    # Testtools & Anforderungen
+├── Wiring.txt                       # Hardware-Anschlussübersicht
+├── VERSION-HISTORY.txt              # Änderungsverlauf
+├── LICENSE                          # MIT-Lizenz
+└── README.md                        # Diese Datei
+```
+
+## ▶️ Start
 
 ```bash
 python3 APRS-Pi-OLED-V2.3.py
-```
-
-oder
-
-```bash
+# oder
 python3 APRS-Pi-Console-V2.2.py
 ```
 
-## Lizenz
+## 📄 Lizenz
 
-Projektspezifisch, privat verwendet.
+Dieses Projekt steht unter der MIT-Lizenz – siehe [LICENSE](LICENSE) für Details.
+
+## 🙋 Mitwirken
+
+Vorschläge, Fehlerberichte oder Erweiterungen sind willkommen!
