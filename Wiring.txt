@@ -1,0 +1,9 @@
+| OLED-Pin | Raspberry Pi GPIO | Funktion        |
+| -------- | ----------------- | --------------- |
+| VCC      | 3.3V (Pin 1)      | Stromversorgung |
+| GND      | GND (Pin 6)       | Masse           |
+| DIN      | GPIO10 (Pin 19)   | MOSI            |
+| CLK      | GPIO11 (Pin 23)   | SCLK            |
+| CS       | GPIO8  (Pin 24)   | SPI0\_CS0       |
+| DC       | GPIO25 (Pin 22)   | Data/Command    |
+| RST      | GPIO24 (Pin 18)   | Reset           |

@@ -1,0 +1,22 @@
+# Versionsübersicht – APRS-Pi
+
+V2.3
+- Portierung der Konsolenversion v2.2 auf SPI-OLED (Waveshare 2.42", SSD1309, 128x64)
+- Display-Ansteuerung über luma.oled.device.ssd1309 per SPI (DC=25, RST=24)
+- Vierseitige Anzeige: Systemstatus, GPS, Akkuladung, Zeitquelle
+- APRS- und GPS-Listener-Threads wie in Konsole v2.2
+- Automatischer Seitenwechsel alle 10 Sekunden (kein Taster notwendig)
+
+
+V2.0
+- Implementierung von Seite 3: Akkuverlauf als Mini-Balkengrafik (20 letzte Ladezustände)
+- ZIP-Datei verwendet neues Versionsformat vX.Y
+- Projektdateien umbenannt auf v2.0 Standard (z. B. oled_monitor_v2.py)
+- Aktualisierte Dokumentation in TXT und DOCX enthalten
+
+V1.0:
+- Initiale Vollversion mit:
+  - OLED-Seiten 1–4
+  - GPS/GPX/INA219/APRS/NTP Integration
+  - GPIO-Taster für Seitenumschaltung
+  - systemd Service + Setup-Anleitung
