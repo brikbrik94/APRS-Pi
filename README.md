@@ -46,9 +46,9 @@ Optional: `gpxlogger` für kontinuierliches Tracking (läuft über gpsd)
 | Komponente                | Beschreibung / Link |
 |--------------------------|---------------------|
 | Raspberry Pi 4B          | https://www.raspberrypi.com/products/raspberry-pi-4-model-b/ |
-| OLED 2.42" (I2C, SH1106) | https://www.waveshare.com/wiki/2.42inch_OLED_Module |
-| UPS HAT (D) mit INA219   | https://www.waveshare.com/wiki/UPS_HAT_(D) |
-| GNSS MAX-M8Q GPS HAT     | https://www.waveshare.com/wiki/GNSS_HAT_(B) |
+| OLED 2.42" (I2C, SH1106) | https://www.waveshare.com/2.42inch-oled-module.htm |
+| UPS HAT (D) mit INA219   | https://www.waveshare.com/ups-hat-d.htm |
+| GNSS MAX-M8Q GPS HAT     | https://www.waveshare.com/max-m8q-gnss-hat.htm|
 | Taster (GPIO17)          | Standard-Taster, z. B. https://www.reichelt.at/taster |
 
 Details zu den Anschlüssen: siehe `Wiring.txt`
